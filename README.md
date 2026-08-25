@@ -10,9 +10,9 @@ The repository is a public portfolio project. It will grow through small, review
 
 ## Current Status
 
-The first implemented component is a synthetic event producer. It writes JSON events to stdout.
+The first implemented components are a synthetic event producer (stdout) and a local Kafka broker.
 
-Kafka, Spark, Iceberg, validation, and the DLQ are not implemented yet. There is no end-to-end pipeline.
+Spark, Iceberg, validation, and the DLQ are not implemented yet. The producer is not connected to Kafka. There is no end-to-end pipeline.
 
 ## Planned Architecture
 
@@ -77,8 +77,35 @@ To emit a fixed number of events instead of running continuously:
 python3 -m producer --count 5
 ```
 
+## Local Kafka
+
+Prerequisites: Docker with Docker Compose.
+
+Start the broker:
+
+```bash
+docker compose up -d
+```
+
+Verify it is running and healthy:
+
+```bash
+docker compose ps
+docker compose exec kafka /opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:19092
+```
+
+The host bootstrap address is `localhost:19092`. No application topics are created in this phase.
+
+Broker log data is stored in the `kafka-data` Docker volume and survives `docker compose down`. Remove broker state with `docker compose down -v`.
+
+Stop the broker:
+
+```bash
+docker compose down
+```
+
 ## Project Status
 
-**Status: Phase 1.1 — Synthetic Event Producer**
+**Status: Phase 1.2 — Local Kafka**
 
-The producer exists. Remaining Phase 1 items are still unimplemented.
+The producer and a local Kafka broker exist. Remaining Phase 1 items are still unimplemented.
