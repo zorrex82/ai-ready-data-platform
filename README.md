@@ -10,9 +10,9 @@ The repository is a public portfolio project. It will grow through small, review
 
 ## Current Status
 
-The repository is in the **project foundation / planning stage**.
+The first implemented component is a synthetic event producer. It writes JSON events to stdout.
 
-No functional pipeline exists yet. There is no running producer, broker, stream processor, lakehouse table, or validation path. Kafka, Spark, Iceberg, and related components are planned, not implemented.
+Kafka, Spark, Iceberg, validation, and the DLQ are not implemented yet. There is no end-to-end pipeline.
 
 ## Planned Architecture
 
@@ -53,8 +53,32 @@ Development will happen one phase at a time. Each change should be small enough 
 
 See [ROADMAP.md](ROADMAP.md) for the planned sequence.
 
+## Running the Producer
+
+Python 3.10+ is required. There are no third-party dependencies.
+
+From the repository root:
+
+```bash
+python3 -m producer
+```
+
+Events are written as JSON lines to stdout. Stop with Ctrl+C.
+
+The interval defaults to 1 second and can be changed with `--interval` or `PRODUCER_INTERVAL_SECONDS`:
+
+```bash
+python3 -m producer --interval 0.5
+```
+
+To emit a fixed number of events instead of running continuously:
+
+```bash
+python3 -m producer --count 5
+```
+
 ## Project Status
 
-**Status: Planning / Foundation**
+**Status: Phase 1.1 — Synthetic Event Producer**
 
-Implementation will begin with the first roadmap milestone after this foundation has been reviewed.
+The producer exists. Remaining Phase 1 items are still unimplemented.

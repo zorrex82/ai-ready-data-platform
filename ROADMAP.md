@@ -26,7 +26,7 @@ Create the first end-to-end streaming path.
 
 Planned work:
 
-- [ ] synthetic Python event producer
+- [x] synthetic Python event producer
 - [ ] Kafka
 - [ ] behavioral event topic
 - [ ] Spark Structured Streaming consumer
