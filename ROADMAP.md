@@ -28,7 +28,7 @@ Planned work:
 
 - [x] synthetic Python event producer
 - [x] Kafka
-- [ ] behavioral event topic
+- [x] behavioral event topic
 - [ ] Spark Structured Streaming consumer
 - [ ] explicit event schema
 - [ ] basic validation

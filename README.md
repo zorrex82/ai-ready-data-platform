@@ -10,7 +10,7 @@ The repository is a public portfolio project. It will grow through small, review
 
 ## Current Status
 
-The first implemented components are a synthetic event producer (stdout) and a local Kafka broker.
+The first implemented components are a synthetic event producer (stdout), a local Kafka broker, and the `behavioral-events` topic.
 
 Spark, Iceberg, validation, and the DLQ are not implemented yet. The producer is not connected to Kafka. There is no end-to-end pipeline.
 
@@ -94,9 +94,29 @@ docker compose ps
 docker compose exec kafka /opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:19092
 ```
 
-The host bootstrap address is `localhost:19092`. No application topics are created in this phase.
+The host bootstrap address is `localhost:19092`.
 
 Broker log data is stored in the `kafka-data` Docker volume and survives `docker compose down`. Remove broker state with `docker compose down -v`.
+
+Create or ensure the `behavioral-events` topic exists:
+
+```bash
+./scripts/ensure-behavioral-events-topic.sh
+```
+
+The script is safe to rerun. Automatic topic creation remains disabled on the broker.
+
+List topics:
+
+```bash
+docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:19092 --list
+```
+
+Describe `behavioral-events`:
+
+```bash
+docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:19092 --describe --topic behavioral-events
+```
 
 Stop the broker:
 
@@ -106,6 +126,6 @@ docker compose down
 
 ## Project Status
 
-**Status: Phase 1.2 — Local Kafka**
+**Status: Phase 1.3 — Behavioral Events Topic**
 
-The producer and a local Kafka broker exist. Remaining Phase 1 items are still unimplemented.
+The producer, local Kafka broker, and `behavioral-events` topic exist. Remaining Phase 1 items are still unimplemented.
